@@ -1,0 +1,295 @@
+﻿@page "/"
+@using AviaturHoteles.Shared.Client.Models
+@inject HttpClient Http 
+
+<PageTitle>Búsqueda de Hoteles</PageTitle>
+
+<h1>Búsqueda de Hoteles</h1>
+
+<div class="card p-4 shadow-sm mb-4">
+    <EditForm Model="@busquedaRequest" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="ciudad" class="form-label">Ciudad de Destino:</label>
+            <InputText id="ciudad" class="form-control rounded-lg" @bind-Value="busquedaRequest.Ciudad" />
+            <ValidationMessage For="@(() => busquedaRequest.Ciudad)" />
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="checkIn" class="form-label">Fecha Check-in:</label>
+                <InputDate id="checkIn" class="form-control rounded-lg" @bind-Value="busquedaRequest.CheckIn" />
+                <ValidationMessage For="@(() => busquedaRequest.CheckIn)" />
+            </div>
+            <div class="col-md-6">
+                <label for="checkOut" class="form-label">Fecha Check-out:</label>
+                <InputDate id="checkOut" class="form-control rounded-lg" @bind-Value="busquedaRequest.CheckOut" />
+                <ValidationMessage For="@(() => busquedaRequest.CheckOut)" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="huespedes" class="form-label">Número de Huéspedes:</label>
+            <InputNumber id="huespedes" class="form-control rounded-lg" @bind-Value="busquedaRequest.Huespedes" />
+            <ValidationMessage For="@(() => busquedaRequest.Huespedes)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary rounded-lg shadow-sm" disabled="@isLoading">
+            @if (isLoading)
+            {
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            }
+            else
+            {
+                <span>Buscar Hoteles</span>
+            }
+        </button>
+    </EditForm>
+</div>
+
+@if (errorMessage != null)
+{
+    <div class="alert alert-danger mt-4 rounded-lg" role="alert">
+        @errorMessage
+    </div>
+}
+
+@if (hoteles == null && !isLoading && errorMessage == null)
+{
+    <p class="mt-4 text-muted">Ingresa tus criterios de búsqueda para encontrar hoteles.</p>
+}
+else if (hoteles != null && hoteles.Any())
+{
+    <h2 class="mt-4">Resultados de la Búsqueda</h2>
+    <div class="row">
+        @foreach (var hotel in hoteles)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm rounded-lg">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@hotel.Nombre</h5>
+                        <p class="card-text text-secondary">@hotel.Descripcion</p>
+                        <p class="card-text"><strong>Precio:</strong> <span class="text-success">$@hotel.Precio</span> COP</p>
+                        <p class="card-text"><strong>Rating:</strong> <span class="text-warning">@hotel.Rating / 5</span></p>
+                        <button class="btn btn-success rounded-lg" @onclick="() => SeleccionarHotelParaReserva(hotel)">Reservar</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else if (hoteles != null && !hoteles.Any() && !isLoading && errorMessage == null)
+{
+    <p class="mt-4 alert alert-info rounded-lg">No se encontraron hoteles con los criterios especificados.</p>
+}
+
+@if (mostrarModalReserva)
+{
+    <div class="modal fade show d-block" tabindex="-1" role="dialog" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content rounded-lg shadow-lg">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Confirmar Reserva para @(hotelSeleccionado?.Nombre)</h5>
+                    <button type="button" class="btn-close btn-close-white" @onclick="CerrarModalReserva"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Hotel:</strong> @hotelSeleccionado?.Nombre</p>
+                    <p><strong>Precio:</strong> <span class="text-success">$@hotelSeleccionado?.Precio</span> USD</p>
+                    <p><strong>Check-in:</strong> @busquedaRequest.CheckIn.ToShortDateString()</p>
+                    <p><strong>Check-out:</strong> @busquedaRequest.CheckOut.ToShortDateString()</p>
+                    <p><strong>Huéspedes:</strong> @busquedaRequest.Huespedes</p>
+
+                    <hr />
+
+                    <div class="mb-3">
+                        <label for="clienteEmail" class="form-label">Email del Cliente (para la reserva):</label>
+                        <InputText id="clienteEmail" class="form-control rounded-lg" @bind-Value="reservaRequest.EmailCliente" />
+                        <ValidationMessage For="@(() => reservaRequest.EmailCliente)" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombreUsuario" class="form-label">Nombre del Cliente:</label>
+                        <InputText id="nombreUsuario" class="form-control rounded-lg" @bind-Value="reservaRequest.NombreCliente" />
+                        <ValidationMessage For="@(() => reservaRequest.NombreCliente)" />
+                    </div>
+                    @if (reservaMessage != null)
+                    {
+                        <div class="alert @(reservaExito ? "alert-success" : "alert-danger") mt-3 rounded-lg">@reservaMessage</div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary rounded-lg" @onclick="CerrarModalReserva">Cancelar</button>
+                    <button type="button" class="btn btn-primary rounded-lg" @onclick="ConfirmarReserva" disabled="@isReserving">
+                        @if (isReserving)
+                        {
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        }
+                        else
+                        {
+                            <span>Confirmar Reserva</span>
+                        }
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private BusquedaHotelRequest busquedaRequest = new BusquedaHotelRequest
+        {
+            Ciudad = "Bogota",
+            CheckIn = DateTime.Today.AddDays(7),
+            CheckOut = DateTime.Today.AddDays(14),
+            Huespedes = 1
+        };
+
+    private List<HotelResponse>? hoteles;
+    private string? errorMessage;
+    private bool isLoading = false;
+
+    private bool mostrarModalReserva = false;
+    private HotelResponse? hotelSeleccionado;
+    private ReservaHotelRequest reservaRequest = new ReservaHotelRequest();
+    private string? reservaMessage;
+    private bool reservaExito = false;
+    private bool isReserving = false;
+
+    protected override void OnInitialized()
+    {
+        reservaRequest.Moneda = "COP";
+        reservaRequest.NombreProveedor = "DummyJSON";
+        reservaRequest.EstadoReserva = "Confirmada";
+        reservaRequest.EmailCliente = "usuario@ejemplo.com";
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        isLoading = true;
+        errorMessage = null;
+        hoteles = null;
+        reservaMessage = null;
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/Hoteles/buscar", busquedaRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                hoteles = await response.Content.ReadFromJsonAsync<List<HotelResponse>>();
+
+                if (hoteles == null || !hoteles.Any())
+                {
+                    errorMessage = "No se encontraron hoteles que coincidan con tus criterios.";
+                }
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                errorMessage = "No se encontraron hoteles con los criterios especificados.";
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                errorMessage = $"Error al buscar hoteles: {response.StatusCode} - {errorContent}";
+                Console.WriteLine($"Error al buscar hoteles: {errorContent}");
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            errorMessage = $"Error de conexión con la API: {ex.Message}. Asegúrate de que la API esté corriendo y el puerto sea correcto.";
+            Console.WriteLine($"HttpRequestException: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Ocurrió un error inesperado: {ex.Message}";
+            Console.WriteLine($"Exception: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void SeleccionarHotelParaReserva(HotelResponse hotel)
+    {
+        hotelSeleccionado = hotel;
+
+        reservaRequest = new ReservaHotelRequest
+            {
+                EmailCliente = reservaRequest.EmailCliente,
+                NombreHotel = hotel.Nombre,
+                CiudadHotel = busquedaRequest.Ciudad,
+                FechaCheckIn = busquedaRequest.CheckIn,
+                FechaCheckOut = busquedaRequest.CheckOut,
+                PrecioTotal = hotel.Precio,
+                Moneda = reservaRequest.Moneda,
+                NombreProveedor = reservaRequest.NombreProveedor,
+                EstadoReserva = reservaRequest.EstadoReserva,
+            };
+        reservaMessage = null;
+        reservaExito = false;
+        mostrarModalReserva = true;
+    }
+
+    private async Task ConfirmarReserva()
+    {
+        isReserving = true;
+        reservaMessage = null;
+        reservaExito = false;
+
+        if (string.IsNullOrWhiteSpace(reservaRequest.EmailCliente) || !reservaRequest.EmailCliente.Contains("@"))
+        {
+            reservaMessage = "Por favor, ingresa un email válido para la reserva.";
+            isReserving = false;
+            return;
+        }
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/Hoteles/reserva", reservaRequest);
+
+            string rawResponseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"[Blazor-ConfirmarReserva] Estado HTTP: {response.StatusCode}");
+            Console.WriteLine($"[Blazor-ConfirmarReserva] Contenido RAW de la respuesta: '{rawResponseContent}'");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var reservaResponse = await response.Content.ReadFromJsonAsync<ReservaHotelResponse>();
+                reservaExito = reservaResponse?.Exito ?? false;
+                reservaMessage = reservaResponse?.Mensaje ?? "Reserva confirmada con éxito.";
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadFromJsonAsync<ReservaHotelResponse>();
+                reservaExito = false;
+                reservaMessage = errorContent?.Mensaje ?? $"Error al reservar: {response.StatusCode}.";
+                Console.WriteLine($"Error al reservar: {response.StatusCode} - {reservaMessage}");
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            reservaExito = false;
+            reservaMessage = $"Error de conexión con la API al reservar: {ex.Message}";
+            Console.WriteLine($"HttpRequestException (Reserva): {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            reservaExito = false;
+            reservaMessage = $"Ocurrió un error inesperado al reservar: {ex.Message}";
+            Console.WriteLine($"Exception (Reserva): {ex.Message}");
+        }
+        finally
+        {
+            isReserving = false;
+        }
+    }
+
+    private void CerrarModalReserva()
+    {
+        mostrarModalReserva = false;
+        hotelSeleccionado = null;
+        reservaMessage = null;
+        reservaExito = false;
+    }
+}

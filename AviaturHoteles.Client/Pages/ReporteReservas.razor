@@ -1,0 +1,226 @@
+﻿@page "/reporteReservas"
+@using AviaturHoteles.Shared.Client.Models
+@inject HttpClient Http
+@using System.Web; // Necesario para HttpUtility.UrlEncode
+
+<PageTitle>Reporte de Reservas</PageTitle>
+
+<h1>Reporte de Reservas</h1>
+
+<div class="card p-4 shadow-sm mb-4">
+    <h2>Filtros de Búsqueda</h2>
+    <EditForm Model="@filtroReservas" OnSubmit="@HandleFilterSubmit">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="fechaDesde" class="form-label">Fecha Desde (Creación):</label>
+                <InputDate id="fechaDesde" class="form-control rounded-lg" @bind-Value="filtroReservas.FechaDesde" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="fechaHasta" class="form-label">Fecha Hasta (Creación):</label>
+                <InputDate id="fechaHasta" class="form-control rounded-lg" @bind-Value="filtroReservas.FechaHasta" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="ciudadHotel" class="form-label">Ciudad del Hotel:</label>
+                <InputText id="ciudadHotel" class="form-control rounded-lg" @bind-Value="filtroReservas.CiudadHotel" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="estadoReserva" class="form-label">Estado de la Reserva:</label>
+                <InputText id="estadoReserva" class="form-control rounded-lg" @bind-Value="filtroReservas.EstadoReserva" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary rounded-lg shadow-sm" disabled="@isLoading">
+            @if (isLoading)
+            {
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            }
+            else
+            {
+                <span>Aplicar Filtros</span>
+            }
+        </button>
+        <button type="button" class="btn btn-secondary rounded-lg shadow-sm ms-2" @onclick="LimpiarFiltros">Limpiar Filtros</button>
+    </EditForm>
+</div>
+
+@if (isLoading)
+{
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="ms-3">Cargando reservas...</p>
+    </div>
+}
+else if (errorMessage != null)
+{
+    <div class="alert alert-danger mt-4 rounded-lg" role="alert">
+        Error al cargar las reservas: @errorMessage
+    </div>
+}
+else if (reservas == null || !reservas.Any())
+{
+    <div class="alert alert-info mt-4 rounded-lg" role="alert">
+        No se encontraron reservas registradas con los filtros aplicados.
+    </div>
+}
+else
+{
+    <p class="mt-3">Total de reservas encontradas: <strong>@reservas.Count</strong></p>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered rounded-lg shadow-sm">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>ID Reserva</th>
+                    <th>Código Proveedor</th>
+                    <th>Hotel</th>
+                    <th>Ciudad</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Precio</th>
+                    <th>Moneda</th>
+                    <th>Estado</th>
+                    <th>Fecha Creación</th>
+                    <th>Email Cliente</th>
+                    <th>Nombre Usuario</th>
+                    <th>Empresa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reserva in reservas)
+                {
+                    <tr>
+                        <td>@reserva.ReservaId</td>
+                        <td>@reserva.CodigoReservaProveedor</td>
+                        <td>@reserva.NombreHotel</td>
+                        <td>@reserva.CiudadHotel</td>
+                        <td>@reserva.FechaCheckIn.ToShortDateString()</td>
+                        <td>@reserva.FechaCheckOut.ToShortDateString()</td>
+                        <td>@reserva.PrecioTotal.ToString("N2")</td>
+                        <td>@reserva.Moneda</td>
+                        <td>@reserva.EstadoReserva</td>
+                        <td>@reserva.FechaCreacionReserva.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@reserva.EmailUsuario</td>
+                        <td>@reserva.NombreEmpresa</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private List<ReservaReporteResponse>? reservas;
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    private class FiltroReservas
+    {
+        public DateTime? FechaDesde { get; set; }
+        public DateTime? FechaHasta { get; set; }
+        public int? ProveedorID { get; set; }
+        public int? EmpresaID { get; set; }
+        public int? UsuarioID { get; set; }
+        public string? CiudadHotel { get; set; }
+        public string? EstadoReserva { get; set; }
+    }
+
+    private FiltroReservas filtroReservas = new FiltroReservas();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarReservas();
+    }
+
+    private async Task HandleFilterSubmit()
+    {
+        await CargarReservas();
+    }
+
+    private async Task LimpiarFiltros()
+    {
+        filtroReservas = new FiltroReservas();
+        await CargarReservas();
+    }
+
+    private async Task CargarReservas()
+    {
+        isLoading = true;
+        errorMessage = null;
+        try
+        {
+            var queryParams = new List<string>();
+
+            if (filtroReservas.FechaDesde.HasValue)
+            {
+                queryParams.Add($"fechaDesde={filtroReservas.FechaDesde.Value:yyyy-MM-dd}");
+            }
+            if (filtroReservas.FechaHasta.HasValue)
+            {
+                queryParams.Add($"fechaHasta={filtroReservas.FechaHasta.Value:yyyy-MM-dd}");
+            }
+            if (filtroReservas.ProveedorID.HasValue)
+            {
+                queryParams.Add($"proveedorID={filtroReservas.ProveedorID.Value}");
+            }
+            if (filtroReservas.EmpresaID.HasValue)
+            {
+                queryParams.Add($"empresaID={filtroReservas.EmpresaID.Value}");
+            }
+            if (filtroReservas.UsuarioID.HasValue)
+            {
+                queryParams.Add($"usuarioID={filtroReservas.UsuarioID.Value}");
+            }
+            if (!string.IsNullOrWhiteSpace(filtroReservas.CiudadHotel))
+            {
+                queryParams.Add($"ciudadHotel={HttpUtility.UrlEncode(filtroReservas.CiudadHotel)}");
+            }
+            if (!string.IsNullOrWhiteSpace(filtroReservas.EstadoReserva))
+            {
+                queryParams.Add($"estadoReserva={HttpUtility.UrlEncode(filtroReservas.EstadoReserva)}");
+            }
+
+            var requestUrl = "api/Hoteles/reporteReservas";
+            if (queryParams.Any())
+            {
+                requestUrl += "?" + string.Join("&", queryParams);
+            }
+
+            Console.WriteLine($"[Blazor-ReporteReservas] Solicitando URL: {requestUrl}");
+
+            var response = await Http.GetAsync(requestUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                reservas = await response.Content.ReadFromJsonAsync<List<ReservaReporteResponse>>();
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                errorMessage = "No se encontraron reservas registradas en el sistema con los filtros aplicados.";
+                reservas = new List<ReservaReporteResponse>();
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                errorMessage = $"Error al cargar reporte: {response.StatusCode} - {errorContent}";
+                Console.WriteLine($"API Error Reporte: {errorContent}");
+                reservas = new List<ReservaReporteResponse>();
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            errorMessage = $"Error de conexión con la API: {ex.Message}. Asegúrate de que la API esté corriendo y sea accesible.";
+            Console.WriteLine($"HttpRequestException Reporte: {ex.Message}");
+            reservas = new List<ReservaReporteResponse>();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Ocurrió un error inesperado: {ex.Message}";
+            Console.WriteLine($"Exception Reporte: {ex.Message}");
+            reservas = new List<ReservaReporteResponse>();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}
