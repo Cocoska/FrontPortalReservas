@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|c:\\users\\jcmc1\\documents\\prueba aviatur\\front\\aviaturhoteles.frontendsolution\\aviaturhoteles.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|solutionrelative:aviaturhoteles.client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|c:\\users\\jcmc1\\documents\\prueba aviatur\\front\\aviaturhoteles.frontendsolution\\aviaturhoteles.client\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|solutionrelative:aviaturhoteles.client\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|c:\\users\\jcmc1\\documents\\prueba aviatur\\front\\aviaturhoteles.frontendsolution\\aviaturhoteles.client\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|solutionrelative:aviaturhoteles.client\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6B6ABE1-A62E-47F7-9CDA-17497B56B557}|AviaturHoteles.Shared.Client\\AviaturHoteles.Shared.Client.csproj|c:\\users\\jcmc1\\documents\\prueba aviatur\\front\\aviaturhoteles.frontendsolution\\aviaturhoteles.shared.client\\models\\reservareporteresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6B6ABE1-A62E-47F7-9CDA-17497B56B557}|AviaturHoteles.Shared.Client\\AviaturHoteles.Shared.Client.csproj|solutionrelative:aviaturhoteles.shared.client\\models\\reservareporteresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|c:\\users\\jcmc1\\documents\\prueba aviatur\\front\\aviaturhoteles.frontendsolution\\aviaturhoteles.client\\pages\\reportereservas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C2EFC793-B0B4-42B7-B3A0-1F74CD089872}|AviaturHoteles.Client\\AviaturHoteles.Client.csproj|solutionrelative:aviaturhoteles.client\\pages\\reportereservas.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6B6ABE1-A62E-47F7-9CDA-17497B56B557}|AviaturHoteles.Shared.Client\\AviaturHoteles.Shared.Client.csproj|c:\\users\\jcmc1\\documents\\prueba aviatur\\front\\aviaturhoteles.frontendsolution\\aviaturhoteles.shared.client\\models\\reservahotelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6B6ABE1-A62E-47F7-9CDA-17497B56B557}|AviaturHoteles.Shared.Client\\AviaturHoteles.Shared.Client.csproj|solutionrelative:aviaturhoteles.shared.client\\models\\reservahotelrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ReservaHotelRequest.cs",
+              "DocumentMoniker": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Shared.Client\\Models\\ReservaHotelRequest.cs",
+              "RelativeDocumentMoniker": "AviaturHoteles.Shared.Client\\Models\\ReservaHotelRequest.cs",
+              "ToolTip": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Shared.Client\\Models\\ReservaHotelRequest.cs",
+              "RelativeToolTip": "AviaturHoteles.Shared.Client\\Models\\ReservaHotelRequest.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAowAcAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T02:25:44.992Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ReporteReservas.razor",
+              "DocumentMoniker": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Pages\\ReporteReservas.razor",
+              "RelativeDocumentMoniker": "AviaturHoteles.Client\\Pages\\ReporteReservas.razor",
+              "ToolTip": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Pages\\ReporteReservas.razor",
+              "RelativeToolTip": "AviaturHoteles.Client\\Pages\\ReporteReservas.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-19T23:01:16.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ReservaReporteResponse.cs",
+              "DocumentMoniker": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Shared.Client\\Models\\ReservaReporteResponse.cs",
+              "RelativeDocumentMoniker": "AviaturHoteles.Shared.Client\\Models\\ReservaReporteResponse.cs",
+              "ToolTip": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Shared.Client\\Models\\ReservaReporteResponse.cs",
+              "RelativeToolTip": "AviaturHoteles.Shared.Client\\Models\\ReservaReporteResponse.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAA4wBgAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T21:43:35.016Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "AviaturHoteles.Client\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "AviaturHoteles.Client\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-19T20:15:59.453Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Pages\\Index.razor",
+              "RelativeDocumentMoniker": "AviaturHoteles.Client\\Pages\\Index.razor",
+              "ToolTip": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Pages\\Index.razor",
+              "RelativeToolTip": "AviaturHoteles.Client\\Pages\\Index.razor",
+              "ViewState": "AgIAABoBAAAAAAAAAAAAAHQAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-19T20:12:47.517Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Program.cs",
+              "RelativeDocumentMoniker": "AviaturHoteles.Client\\Program.cs",
+              "ToolTip": "C:\\Users\\jcmc1\\Documents\\prueba aviatur\\Front\\AviaturHoteles.FrontendSolution\\AviaturHoteles.Client\\Program.cs",
+              "RelativeToolTip": "AviaturHoteles.Client\\Program.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-19T20:05:00.648Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

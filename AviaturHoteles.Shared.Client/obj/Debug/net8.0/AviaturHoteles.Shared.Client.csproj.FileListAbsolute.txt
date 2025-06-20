@@ -1,0 +1,11 @@
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\bin\Debug\net8.0\AviaturHoteles.Shared.Client.deps.json
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\bin\Debug\net8.0\AviaturHoteles.Shared.Client.dll
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\bin\Debug\net8.0\AviaturHoteles.Shared.Client.pdb
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\AviaturHoteles.Shared.Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\AviaturHoteles.Shared.Client.AssemblyInfoInputs.cache
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\AviaturHoteles.Shared.Client.AssemblyInfo.cs
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\AviaturHoteles.Shared.Client.csproj.CoreCompileInputs.cache
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\AviaturHoteles.Shared.Client.dll
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\refint\AviaturHoteles.Shared.Client.dll
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\AviaturHoteles.Shared.Client.pdb
+C:\Users\jcmc1\Documents\prueba aviatur\Front\AviaturHoteles.FrontendSolution\AviaturHoteles.Shared.Client\obj\Debug\net8.0\ref\AviaturHoteles.Shared.Client.dll
